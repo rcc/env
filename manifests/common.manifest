@@ -3,3 +3,4 @@
 LINK		.bashrc					../shell/bashrc
 LINK		.bash_profile			../shell/bash_profile
 LINK		.shell/S10env			../shell/S10env
+LINK		.shell/S20editor		../shell/S20editor
