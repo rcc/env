@@ -3,39 +3,53 @@ COMMANDS="install ${COMMANDS}"
 install_SHORT_HELP="install a manifest"
 install_LONG_HELP="usage: install <manifest> [destination (default:~)]"
 
-handle_entry () {
-	DESTDIR="${1}"
-	SRCDIR="${2}"
-	TYPE="${3}"
-	DESTFILE="${4}"
-	SRCFILE="${5}"
-
-	DEST="${DESTDIR}/${DESTFILE}"
-
-	if [ -n "$SRCFILE" -a -e "${SRCDIR}/${SRCFILE}" ]; then
-		SRC="$(abspath ${SRCDIR}/${SRCFILE})"
-	fi
+handle_file () {
+	SRC="${1}"
+	DEST="${2}"
 
 	mkdir -p "$(dirname $DEST)"
 
+	if [ -e "$DEST" ]; then
+		echo "Skipping: file '$DEST' already exists"
+	else
+		[ -e "$SRC" ] && cp "$SRC" "$DEST" || \
+			echo "Warning: Source does not exist: $SRC"
+	fi
+}
+
+handle_link () {
+	SRC="${1}"
+	DEST="${2}"
+
+	mkdir -p "$(dirname $DEST)"
+
+	if [ -e "$DEST" -o -L "$DEST" ]; then
+		[ "$(readlink $DEST)" == "$SRC" ] || \
+			echo "Skipping: file '$DEST' already exists"
+	else
+		[ -e "$SRC" ] && ln -s "$SRC" "$DEST" || \
+			echo "Warning: Source does not exist: $SRC"
+	fi
+}
+
+handle_entry () {
+	DESTDIR="${1}"
+	shift
+	SRCDIR="${1}"
+	shift
+	TYPE="${1}"
+	shift
 	case "$TYPE" in
 		"FILE" )
-			if [ -e "$DEST" ]; then
-				echo "Skipping: file '$DEST' already exists"
-			else
-				[ -e "$SRC" ] && cp "$SRC" "$DEST" || \
-					echo "Warning: Source does not exist: $SRC"
-			fi
+			DEST="${DESTDIR}/${1}"
+			SRC="$(abspath ${SRCDIR}/${2})"
+			handle_file "$SRC" "$DEST"
 			;;
 
 		"LINK" )
-			if [ -e "$DEST" -o -L "$DEST" ]; then
-				[ "$(readlink $DEST)" == "$SRC" ] || \
-					echo "Skipping: file '$DEST' already exists"
-			else
-				[ -e "$SRC" ] && ln -s "$SRC" "$DEST" || \
-					echo "Warning: Source does not exist: $SRC"
-			fi
+			DEST="${DESTDIR}/${1}"
+			SRC="$(abspath ${SRCDIR}/${2})"
+			handle_link "$SRC" "$DEST"
 			;;
 		* )
 			echo "Warning: Invalid type: $1"
@@ -59,7 +73,10 @@ cmd_install () {
 
 	awk 'BEGIN { FS="[\t]+"; }
 			/^[A-Z]/ {
-				print "\"" $1 "\" \"" $2 "\" \"" $3 "\"";
+				for(ii = 1; ii <= NF; ii++) {
+					printf(" \"%s\"", $ii);
+				}
+				printf("\n");
 			}
 			' "$MANIFEST" | while read handleargs; do
 		eval handle_entry "\"$DESTDIR\"" "\"$SRCDIR\"" $handleargs
