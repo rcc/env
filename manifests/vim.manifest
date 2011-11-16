@@ -1,0 +1,4 @@
+# All Sources are relative to manifest file
+# Type		Destination				Source
+
+LINK		.shell/S20vim			../shell/S20vim
