@@ -44,7 +44,7 @@ handle_entry () {
 
 cmd_install () {
 	MANIFEST="$1"
-	DESTDIR="${2:-~}"
+	DESTDIR="${2:-${HOME}}"
 
 	SRCDIR="$(dirname $MANIFEST)"
 
