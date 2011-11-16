@@ -1,4 +1,5 @@
+# All Sources are relative to manifest file
 # Type		Destination				Source
-LINK		.bashrc					shell/bashrc
-LINK		.bash_profile			shell/bash_profile
-LINK		.shell/S10env			shell/S10env
+LINK		.bashrc					../shell/bashrc
+LINK		.bash_profile			../shell/bash_profile
+LINK		.shell/S10env			../shell/S10env
