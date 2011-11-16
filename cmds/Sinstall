@@ -1,0 +1,56 @@
+COMMANDS="install ${COMMANDS}"
+
+install_SHORT_HELP="install a manifest"
+install_LONG_HELP="usage: install <manifest> [destination (default:~)]"
+
+handle_entry () {
+	DEST="${1}/${3}"
+	if [ -n "$4" -a -e "$4" ]; then
+		SRC="$(abspath ${4})"
+	fi
+
+	mkdir -p "$(dirname $DEST)"
+
+	case "$2" in
+		"FILE" )
+			if [ -e "$DEST" ]; then
+				echo "Skipping: file '$DEST' already exists"
+			else
+				cp "$SRC" "$DEST"
+			fi
+			;;
+
+		"LINK" )
+			if [ -e "$DEST" -o -L "$DEST" ]; then
+				echo "Skipping: file '$DEST' already exists"
+			else
+				ln -s "$SRC" "$DEST"
+			fi
+			;;
+		* )
+			echo "Warning: Invalid type: $1"
+			;;
+	esac
+}
+
+cmd_install () {
+	M=$1
+	D=${2:-~}
+	if [ ! -e "$M" ]; then
+		error_exit "Manifest not found"
+	fi
+
+	if [ ! -d "$D" ]; then
+		error_exit "Destination not found"
+	fi
+
+	awk 'BEGIN { FS="[\t]+"; }
+			/^[A-Z]/ {
+				print "handle_entry \"$D\" \"" $1 "\" \"" $2 "\" \"" $3 "\"";
+			}
+			' "$M" | while read handlecmd; do
+		eval $handlecmd
+	done
+}
+
+# vim:filetype=sh

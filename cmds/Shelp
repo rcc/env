@@ -1,0 +1,30 @@
+COMMANDS="help ${COMMANDS}"
+
+help_SHORT_HELP="print list of commands or help for a command"
+help_LONG_HELP="usage: help [command]"
+
+cmd_help () {
+    if [ "$#" -eq 0 ]; then
+        for cmd in $COMMANDS; do
+            short_help=${cmd}_SHORT_HELP
+            echo -e "${MG}${cmd}${NO} - ${!short_help}"
+        done
+    else
+        found=0
+        for cmd in $COMMANDS; do
+            if [ "$cmd" == "$1" ]; then
+                found=1
+                short_help=${cmd}_SHORT_HELP
+                long_help=${cmd}_LONG_HELP
+                echo -e "Command: ${MG}${cmd}${NO}"
+                echo "Summary: ${!short_help}"
+                echo "    ${!long_help}"
+            fi
+        done
+        if [ "$found" -eq 0 ]; then
+            error_exit "Could not find command: $1"
+        fi
+    fi
+}
+
+# vim:filetype=sh

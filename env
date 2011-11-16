@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# initialize command list
+COMMANDS=""
+
+# color constants
+NO="\033[0m"
+BR="\033[30m"
+RD="\033[31m"
+GR="\033[32m"
+YL="\033[33m"
+BL="\033[34m"
+MG="\033[35m"
+CY="\033[36m"
+
+# extremely complicated process to just figure out where the script lives
+if [ -e "$0" ]; then
+    SCRIPT_NAME=$0
+else
+    SCRIPT_NAME=$(which "$0")
+fi
+
+if [ -L "$SCRIPT_NAME" ]; then
+    REAL_SCRIPT_NAME=$(dirname $SCRIPT_NAME)/$(readlink "$0")
+else
+    REAL_SCRIPT_NAME=$SCRIPT_NAME
+fi
+
+SCRIPT_ROOT=$(dirname "$REAL_SCRIPT_NAME")
+
+# exit command
+error_exit () {
+    echo -e $* 1>&2
+    exit 1
+}
+
+# source all the commands
+for script in "${SCRIPT_ROOT}"/cmds/S*; do
+    source "${script}"
+done
+
+# if no arguments, print help
+if [ "$#" -eq 0 ]; then
+    cmd_help
+    exit 0
+fi
+
+# try and run command
+CMDNAME=$1
+shift
+
+found=0
+for cmd in $COMMANDS; do
+    if [ "$cmd" == "$CMDNAME" ]; then
+        found=1
+    fi
+done
+if [ "$found" -eq 1 ]; then
+    cmd_${CMDNAME} "$@"
+else
+    error_exit "Could not find command: $CMDNAME"
+fi

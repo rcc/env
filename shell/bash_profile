@@ -1,0 +1,2 @@
+export INTERACTIVE_LOGIN=1
+[ -e ~/.bashrc ] && source ~/.bashrc

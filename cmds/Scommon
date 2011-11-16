@@ -1,0 +1,4 @@
+abspath () {
+	echo `(cd $(dirname "$*") && echo $(pwd)/$(basename "$*"))`
+}
+# vim:filetype=sh

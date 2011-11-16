@@ -1,0 +1,5 @@
+export INTERACTIVE_LOGIN=${INTERACTIVE_LOGIN:-0}
+
+for script in ~/.shell/S*; do
+    source "${script}"
+done
