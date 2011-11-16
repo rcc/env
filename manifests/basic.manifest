@@ -1,14 +1,9 @@
 # All Sources are relative to manifest file
 # Type		Destination				Source
 
-# Basic Shell Environment
+# Very Basic Shell Environment
 LINK		.bashrc					../shell/bashrc
 LINK		.bash_profile			../shell/bash_profile
 LINK		.shell/S10env			../shell/S10env
 LINK		.shell/S20editor		../shell/S20editor
 LINK		.shell/S20history		../shell/S20history
-
-# E
-LINK		.e/e.py					../e/e.py
-LINK		.e/sh/default.project	../efiles/default.project
-LINK		.shell/S90e				../efiles/S90e

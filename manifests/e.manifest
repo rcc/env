@@ -1,0 +1,12 @@
+# All Sources are relative to manifest file
+
+
+# Git Submodules
+GITSUB		../e
+
+# Type		Destination				Source
+
+# E
+LINK		.e/e.py					../e/e.py
+LINK		.e/sh/default.project	../efiles/default.project
+LINK		.shell/S90e				../efiles/S90e
