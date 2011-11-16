@@ -1,17 +1,7 @@
 export EDITOR="vim"
 export GEDITOR="mvim"
 
-fopen () {
-    find . -type f -name "$1" | xargs -n 1 ${GEDITOR}
-}
-
-openall () {
-    while [ "$#" -gt "0" ]; do
-        ${GEDITOR} "$1"
-        shift
-    done
-}
-
+# Opens multiple files in side-by-side mode
 vix () {
     if [ ! "$#" == "0" ]; then
         GVIMCOLS=$(expr $# \* 80 + \( $# - 1 \))
@@ -19,6 +9,7 @@ vix () {
     fi
 }
 
+# Opens multiple files in tabs
 vixt () {
     if [ ! "$#" == "0" ]; then
         mvim -p $*
