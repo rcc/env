@@ -1,0 +1,7 @@
+if [ "$INTERACTIVE_LOGIN" -eq "1" ]; then
+	export HISTCONTROL=erasedups
+	bind '"\e[A":history-search-backward'
+	bind '"\e[B":history-search-forward'
+fi
+
+# vim:filetype=sh
