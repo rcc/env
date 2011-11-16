@@ -7,3 +7,5 @@ LINK		.bash_profile			../shell/bash_profile
 LINK		.shell/S10env			../shell/S10env
 LINK		.shell/S20vim			../shell/S20vim
 LINK		.shell/S20history		../shell/S20history
+
+DIR			bin

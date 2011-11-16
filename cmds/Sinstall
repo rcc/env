@@ -37,6 +37,13 @@ handle_gitsub () {
 	(cd "$(dirname $SUB)" && git submodule update --init "$(basename $SUB)")
 }
 
+handle_dir () {
+	if [ ! -d "$1" ]; then
+		echo "Creating Directory: $1"
+		mkdir -p "$1"
+	fi
+}
+
 handle_entry () {
 	DESTDIR="${1}"
 	shift
@@ -59,6 +66,10 @@ handle_entry () {
 		"GITSUB" )
 			SUB="$(abspath ${SRCDIR}/${1})"
 			handle_gitsub "$SUB"
+			;;
+		"DIR" )
+			NEWDIR="${DESTDIR}/${1}"
+			handle_dir "$NEWDIR"
 			;;
 		* )
 			echo "Warning: Invalid type: $1"
