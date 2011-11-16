@@ -30,7 +30,8 @@ handle_entry () {
 
 		"LINK" )
 			if [ -e "$DEST" -o -L "$DEST" ]; then
-				echo "Skipping: file '$DEST' already exists"
+				[ "$(readlink $DEST)" == "$SRC" ] || \
+					echo "Skipping: file '$DEST' already exists"
 			else
 				[ -e "$SRC" ] && ln -s "$SRC" "$DEST" || \
 					echo "Warning: Source does not exist: $SRC"
