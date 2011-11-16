@@ -1,18 +1,24 @@
-export EDITOR="vim"
-export GEDITOR="mvim"
+if [ "$(uname -s)" == "Darwin" ]; then
+	export GVIM=mvim
+else
+	export GVIM=gvim
+fi
+
+export EDITOR=vim
+export GEDITOR=$GVIM
 
 # Opens multiple files in side-by-side mode
 vix () {
     if [ ! "$#" == "0" ]; then
         GVIMCOLS=$(expr $# \* 80 + \( $# - 1 \))
-        mvim -O "+set columns=$GVIMCOLS" $*
+        $GVIM -O "+set columns=$GVIMCOLS" $*
     fi
 }
 
 # Opens multiple files in tabs
 vixt () {
     if [ ! "$#" == "0" ]; then
-        mvim -p $*
+        $GVIM -p $*
     fi
 }
 
