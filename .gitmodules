@@ -1,0 +1,3 @@
+[submodule "e/e"]
+	path = e/e
+	url = git://github.com/rcc/e.git

@@ -2,11 +2,11 @@
 
 
 # Git Submodules
-GITSUB		../e
+GITSUB		../e/e
 
 # Type		Destination				Source
 
 # E
-LINK		.e/e.py					../e/e.py
-LINK		.e/sh/default.project	../efiles/default.project
-LINK		.shell/S90e				../efiles/S90e
+LINK		.e/e.py					../e/e/e.py
+LINK		.e/sh/default.project	../e/default.project
+LINK		.shell/S90e				../e/S90e
