@@ -1,0 +1,2 @@
+export GIT_EDITOR=$EDITOR
+# vim:filetype=sh

@@ -1,0 +1,7 @@
+export SVN_EDITOR=$EDITOR
+
+# XXX: Uses difftools
+svndiff () {
+	svn diff "$@" | detab 8 | diffcolorize | less -R -X
+}
+# vim:filetype=sh

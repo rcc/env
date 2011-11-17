@@ -1,0 +1,149 @@
+export P4EDITOR=$EDITOR
+export P4DIFF="diff -u"
+
+# XXX: E specific
+p4sync () {
+	if [ "$#" -eq "0" ]; then
+		env | grep "^${EPROJECT}_P4SYNCDIR" | while read syncenv; do
+			syncpath=$(echo "$syncenv" | awk 'BEGIN {FS = "=";} {print $2;}')
+			echo -e "\033[1;32;40m${syncpath}\033[0m"
+			p4 sync "${syncpath}/...#head"
+		done
+	else
+		syncpath=$(eval "echo \${${EPROJECT}_P4SYNCDIR${1}}")
+		if [ -d "$syncpath" ]; then
+			echo -e "\033[1;32;40m${syncpath}\033[0m"
+			p4 sync "${syncpath}/...#head"
+		else
+			echo "'$syncpath' does not exist"
+		fi
+	fi
+}
+
+p4opened () {
+    p4 opened $* | awk 'BEGIN {FS="#";} {print $1;}' | while read dfile; do
+        p4 fstat "$dfile" | \
+            awk '$2 == "clientFile" {
+                i=2;
+                while(i<NF)
+                {
+                    i++;
+                    printf("%s ",$i);
+                }
+                print "";
+            }'
+    done
+}
+
+p4old () {
+    find . -type f | while read fn; do
+        p4 fstat "$fn" | awk -v filename="$fn" '
+        BEGIN {
+            head = -1;
+            have = -1;
+        }
+        
+        $2 == "headRev" {
+            head = $3;
+        }
+
+        $2 == "haveRev" {
+            have = $3;
+        }
+
+        END {
+            if(have == -1 || head == -1)
+                ;
+            else if(have != head)
+                print filename "#" have "," head;
+        }'
+    done
+}
+
+p4_showuntracked () {
+    find . -type f | while read fn; do
+        if (p4 fstat "$fn" 2>&1 | grep 'no such file' > /dev/null); then
+            echo $fn
+        fi
+    done
+}
+
+p4_branch_details () {
+    if [ "$#" -ne 1 ]; then
+        echo "usage: p4_branch_details <file[revRange]>"
+        return 1
+    fi
+
+    FSPEC="$1"
+
+    REVS=$(p4 changelists "$FSPEC" | awk '{ print $2; }' | sort)
+
+    for ii in $REVS; do
+        echo "================================================================================"
+        p4 describe -du -dc -db $ii
+        echo
+        echo
+    done
+}
+
+# XXX: Uses difftools
+p4diff () {
+    P4DIFF="diff -uwp" p4 diff "$@" | detab | diffcolorize
+}
+
+p4needsmerge () {
+    p4opened | while read fn; do
+        if (p4 fstat "$fn"  | grep '... unresolved' > /dev/null); then
+            echo $fn
+        fi
+    done
+}
+
+# XXX: Uses difftools
+p4describe () {
+    p4 describe -du -db $1 | diffcolorize | detab
+}
+
+p4cl_from_gitbranch () {
+	git diff --name-only "$1" | while read fn; do
+        if (p4 fstat "$fn" 2>&1 | grep 'no such file' > /dev/null); then
+            p4 add "$fn"
+		else
+            p4 edit "$fn"
+        fi
+	done
+}
+
+p4patch () {
+	if p4 change -o $1 | grep -E '^Status:.*pending' > /dev/null; then
+		#echo "Pending Changelist: ${1}" > CL${1}.patch
+		#echo >> CL${1}.patch
+		p4 describe $1 > CL${1}.patch
+		p4 opened -c $1 | awk 'BEGIN {FS="#";} {print $1;}' | while read dfile; do
+			P4DIFF="diff -up" p4 diff "$dfile" | awk 'BEGIN { p = 0; }
+				/^====.*====$/ {
+					sub("==== //", "--- a/");
+					sub("#.*$", "");
+					print $0;
+					sub("--- a", "+++ b");
+				}
+				/^---/,/^\+\+\+/ { next; }
+				{ print $0; }
+				' >> CL${1}.patch
+		done
+	else
+		p4 describe -s $1 > CL${1}.patch
+		p4 describe -du -db $1 | awk 'BEGIN { p = 0; }
+			/^====/ {
+				sub("==== //", "--- a/");
+				sub("#.*$", "");
+				print $0;
+				sub("--- a", "+++ b");
+			}
+			{ if(p) print $0; }
+			/^Differences \.\.\./ { p = 1; }' >> CL${1}.patch
+	fi
+	echo "CL${1}.patch"
+}
+
+# vim:filetype=sh

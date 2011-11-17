@@ -1,0 +1,7 @@
+# All Sources are relative to manifest file
+# Type		Destination				Source
+
+LINK		.shell/S30cscope			../shell/S30cscope
+LINK		.shell/S40git				../shell/S40git
+LINK		.shell/S40svn				../shell/S40svn
+LINK		.shell/S40perforce			../shell/S40perforce
