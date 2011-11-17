@@ -34,7 +34,8 @@ handle_link () {
 
 handle_gitsub () {
 	SUB=${1%%/}
-	(cd "$(dirname $SUB)" && git submodule update --init "$(basename $SUB)")
+	(cd "$(dirname $SUB)" && cd "$(git rev-parse --show-cdup)" && \
+		git submodule update --init "$(basename $SUB)")
 }
 
 handle_dir () {
