@@ -1,3 +1,6 @@
 [submodule "e/e"]
 	path = e/e
 	url = git://github.com/rcc/e.git
+[submodule "difftools"]
+	path = difftools
+	url = git://github.com/rcc/difftools.git
