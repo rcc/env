@@ -1,2 +1,23 @@
 export GIT_EDITOR=$EDITOR
+
+gitversion () {
+	git describe --tags --dirty=+ 2>/dev/null || \
+		git rev-parse --short=16 HEAD 2>/dev/null || \
+		echo "UNKNOWN"
+}
+
+gitpackage () {
+	V=$(gitversion)
+	ROOTDIRREL="$(pwd)/$(git rev-parse --show-cdup)"
+	ROOTDIR=$(cd "$ROOTDIRREL" && pwd)
+	ROOTLOC=$(dirname "$ROOTDIR")
+	ROOT=$(pwd | sed -e "s;${ROOTLOC}[/]*;;" | sed 'y; -/;___;')
+	OUTPUT=${ROOT}-${V}
+	if [ -d "$1" ]; then
+		git archive --prefix=${OUTPUT}/ --format=tar HEAD | \
+			gzip > "${1}/${OUTPUT}.tar.gz"
+	else
+		echo "Destination not found"
+	fi
+}
 # vim:filetype=sh
