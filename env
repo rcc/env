@@ -21,9 +21,14 @@ else
 fi
 
 if [ -L "$SCRIPT_NAME" ]; then
-    REAL_SCRIPT_NAME=$(dirname $SCRIPT_NAME)/$(readlink "$0")
+	LINK_PATH=$(readlink "$0")
+	if [ "${LINK_PATH:0:1}" == "." ]; then
+		REAL_SCRIPT_NAME=$(dirname $SCRIPT_NAME)/$(readlink "$0")
+	else
+		REAL_SCRIPT_NAME="${LINK_PATH}"
+	fi
 else
-    REAL_SCRIPT_NAME=$SCRIPT_NAME
+    REAL_SCRIPT_NAME="${SCRIPT_NAME}"
 fi
 
 SCRIPT_ROOT=$(dirname "$REAL_SCRIPT_NAME")
