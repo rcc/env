@@ -6,8 +6,9 @@ install_LONG_HELP="usage: install <manifest> [destination (default:~)]"
 handle_file () {
 	SRC="${1}"
 	DEST="${2}"
+	DESTDIR=$(dirname "$DEST")
 
-	mkdir -p "$(dirname $DEST)"
+	mkdir -p "$DESTDIR"
 
 	if [ -e "$DEST" ]; then
 		echo "Skipping: file '$DEST' already exists"
@@ -20,11 +21,13 @@ handle_file () {
 handle_link () {
 	SRC="${1}"
 	DEST="${2}"
+	DESTDIR=$(dirname "$DEST")
+	DESTLINK=$(readlink "$DEST")
 
-	mkdir -p "$(dirname $DEST)"
+	mkdir -p "$DESTDIR"
 
 	if [ -e "$DEST" -o -L "$DEST" ]; then
-		[ "$(readlink $DEST)" == "$SRC" ] || \
+		[ "$DESTLINK" == "$SRC" ] || \
 			echo "Skipping: file '$DEST' already exists"
 	else
 		[ -e "$SRC" ] && ln -s "$SRC" "$DEST" || \
@@ -34,8 +37,10 @@ handle_link () {
 
 handle_gitsub () {
 	SUB=${1%%/}
-	(cd "$(dirname $SUB)" && cd "$(git rev-parse --show-cdup)" && \
-		git submodule update --init "$(basename $SUB)")
+	SUBDIR=$(dirname "$SUB")
+	SUBBASE=$(basename "$SUB")
+	(cd "$SUBDIR" && cd "$(git rev-parse --show-cdup)" && \
+		git submodule update --init "$SUBBASE")
 }
 
 handle_dir () {
