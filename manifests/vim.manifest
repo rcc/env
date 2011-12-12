@@ -4,6 +4,10 @@ MANIFEST	vim_basic.manifest
 # Type		Destination					Source
 LINK		.shell/S20vim				../shell/S20vim
 
+LINK		.vim/scripts/git.vim		../vim/scripts/git.vim
+LINK		.vim/scripts/svn.vim		../vim/scripts/svn.vim
+LINK		.vim/scripts/p4.vim			../vim/scripts/p4.vim
+
 LINK		.vim/gscripts/output.vim	../vim/gscripts/output.vim
 LINK		.vim/gscripts/git.vim		../vim/gscripts/git.vim
 LINK		.vim/gscripts/svn.vim		../vim/gscripts/svn.vim

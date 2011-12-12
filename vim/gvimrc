@@ -2,10 +2,6 @@ set lines=50
 set columns=161
 colorscheme wombat
 
-" Copy and paste
-vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-"nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
-
 " no toolbar
 set guioptions-=T
 
