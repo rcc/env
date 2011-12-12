@@ -1,9 +1,9 @@
-# All Sources are relative to manifest file
+MANIFEST	basic.manifest
 
-
-# Git Submodules
+# Git Submodule
 GITSUB		../e/e
 
+# All Sources are relative to manifest file
 # Type		Destination				Source
 
 # E
