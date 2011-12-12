@@ -6,6 +6,9 @@ LINK		.shell/S40git				../shell/S40git
 LINK		.shell/S40svn				../shell/S40svn
 LINK		.shell/S40perforce			../shell/S40perforce
 
+GITSUB		../difftools
+MAKECMD		../difftools				clean
+MAKECMD		../difftools				DESTDIR=buildresults INSTALL=1 difftools.release	
 LINK		bin/difftools				../difftools/buildresults/difftools
 LINK		bin/detab					../difftools/buildresults/difftools
 LINK		bin/diffcolorize			../difftools/buildresults/difftools

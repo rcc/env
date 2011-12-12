@@ -77,6 +77,11 @@ handle_entry () {
 			NEWDIR="${DESTDIR}/${1}"
 			handle_dir "$NEWDIR"
 			;;
+		"MAKECMD" )
+			BUILDDIR="$(abspath ${SRCDIR}/${1})"
+			shift
+			make -C "$BUILDDIR" $*
+			;;
 		* )
 			echo "Warning: Invalid type: $1"
 			;;
@@ -85,15 +90,15 @@ handle_entry () {
 
 cmd_install () {
 	MANIFEST="$1"
-	DESTDIR="${2:-${HOME}}"
+	_DESTDIR="${2:-${HOME}}"
 
-	SRCDIR="$(dirname $MANIFEST)"
+	_SRCDIR="$(dirname $MANIFEST)"
 
 	if [ ! -e "$MANIFEST" ]; then
 		error_exit "Manifest not found"
 	fi
 
-	if [ ! -d "$DESTDIR" ]; then
+	if [ ! -d "$_DESTDIR" ]; then
 		error_exit "Destination not found"
 	fi
 
@@ -105,7 +110,7 @@ cmd_install () {
 				printf("\n");
 			}
 			' "$MANIFEST" | while read handleargs; do
-		eval handle_entry "\"$DESTDIR\"" "\"$SRCDIR\"" $handleargs
+		eval handle_entry "\"$_DESTDIR\"" "\"$_SRCDIR\"" $handleargs
 	done
 }
 
