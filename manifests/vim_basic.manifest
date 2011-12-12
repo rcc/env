@@ -1,0 +1,6 @@
+# All Sources are relative to manifest file
+# Type		Destination				Source
+
+LINK		.vimrc					../vim/vimrc
+LINK		.gvimrc					../vim/gvimrc
+LINK		.vim/colors/wombat.vim	../vim/colors/wombat.vim
