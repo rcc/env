@@ -1,5 +1,10 @@
 MANIFEST	vim_basic.manifest
 
 # All Sources are relative to manifest file
-# Type		Destination				Source
-LINK		.shell/S20vim			../shell/S20vim
+# Type		Destination					Source
+LINK		.shell/S20vim				../shell/S20vim
+
+LINK		.vim/gscripts/output.vim	../vim/gscripts/output.vim
+LINK		.vim/gscripts/git.vim		../vim/gscripts/git.vim
+LINK		.vim/gscripts/svn.vim		../vim/gscripts/svn.vim
+LINK		.vim/gscripts/p4.vim		../vim/gscripts/p4.vim

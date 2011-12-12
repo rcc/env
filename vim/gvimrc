@@ -15,14 +15,17 @@ set guicursor+=a:blinkon0
 " font
 set guifont=Monaco:h12
 
-" remove all default menus
-aunmenu *
+" remove some default menus
+aunmenu Tools
+aunmenu Syntax
 
 " add custom menu options
-menu Edit.Paste "*p
-menu Style.Tabs-8 :set noexpandtab tabstop=8 shiftwidth=8<CR>
-menu Style.Spaces-8 :set expandtab tabstop=8 shiftwidth=8<CR>
-menu Style.Tabs-4 :set noexpandtab tabstop=4 shiftwidth=4<CR>
-menu Style.Spaces-4 :set expandtab tabstop=4 shiftwidth=4<CR>
-menu Style.Tabs-2 :set noexpandtab tabstop=2 shiftwidth=2<CR>
-menu Style.Spaces-2 :set expandtab tabstop=2 shiftwidth=2<CR>
+100menu Style.Tabs-8 :set noexpandtab tabstop=8 shiftwidth=8<CR>
+100menu Style.Spaces-8 :set expandtab tabstop=8 shiftwidth=8<CR>
+100menu Style.Tabs-4 :set noexpandtab tabstop=4 shiftwidth=4<CR>
+100menu Style.Spaces-4 :set expandtab tabstop=4 shiftwidth=4<CR>
+100menu Style.Tabs-2 :set noexpandtab tabstop=2 shiftwidth=2<CR>
+100menu Style.Spaces-2 :set expandtab tabstop=2 shiftwidth=2<CR>
+
+" source all .vim files in ~/.vim/gscripts
+call ReadScriptFiles("~/.vim/gscripts/*.vim")

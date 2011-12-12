@@ -39,3 +39,26 @@ set title		" let vim modify the title
 
 " program to pipe text through when pressing =
 set equalprg=fmt
+
+" Functions
+function! ReadScriptFiles(wildcard)
+	let scriptfiles = glob(a:wildcard)
+	let scriptlist = split(scriptfiles, '\n')
+	for scriptfile in scriptlist
+		exe 'source ' . scriptfile
+	endfor
+endfunction
+
+function! ReadEEnv()
+    let opts = $vimoptions
+    let optlist = split(opts, ';')
+    for opt in optlist
+        exe 'set ' . opt
+    endfor
+endfunction
+
+" source all .vim files in ~/.vim/scripts
+call ReadScriptFiles("~/.vim/scripts/*.vim")
+" set all options defined in vimoptions env
+call ReadEEnv()
+
