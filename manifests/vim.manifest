@@ -1,14 +1,24 @@
 MANIFEST	vim_basic.manifest
 
 # All Sources are relative to manifest file
-# Type		Destination					Source
-LINK		.shell/S20vim				../shell/S20vim
+# Type		Destination						Source
+LINK		.shell/S20vim					../shell/S20vim
 
-LINK		.vim/scripts/git.vim		../vim/scripts/git.vim
-LINK		.vim/scripts/svn.vim		../vim/scripts/svn.vim
-LINK		.vim/scripts/p4.vim			../vim/scripts/p4.vim
+LINK		.vim/scripts/git.vim			../vim/scripts/git.vim
+LINK		.vim/scripts/svn.vim			../vim/scripts/svn.vim
+LINK		.vim/scripts/p4.vim				../vim/scripts/p4.vim
+LINK		.vim/scripts/cscope.vim			../vim/scripts/cscope.vim
+LINK		.vim/scripts/hexedit.vim		../vim/scripts/hexedit.vim
+LINK		.vim/scripts/devel.vim			../vim/scripts/devel.vim
+LINK		.vim/scripts/filetype.vim		../vim/scripts/filetype.vim
+LINK		.vim/scripts/netrw.vim			../vim/scripts/netrw.vim
 
-LINK		.vim/gscripts/output.vim	../vim/gscripts/output.vim
-LINK		.vim/gscripts/git.vim		../vim/gscripts/git.vim
-LINK		.vim/gscripts/svn.vim		../vim/gscripts/svn.vim
-LINK		.vim/gscripts/p4.vim		../vim/gscripts/p4.vim
+LINK		.vim/scripts/c/bitfields.vim	../vim/scripts/c/bitfields.vim
+LINK		.vim/scripts/c/comment.vim		../vim/scripts/c/comment.vim
+
+LINK		.vim/gscripts/output.vim		../vim/gscripts/output.vim
+LINK		.vim/gscripts/git.vim			../vim/gscripts/git.vim
+LINK		.vim/gscripts/svn.vim			../vim/gscripts/svn.vim
+LINK		.vim/gscripts/p4.vim			../vim/gscripts/p4.vim
+
+LINK		.vim/syntax/tsv.vim				../vim/syntax/tsv.vim

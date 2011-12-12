@@ -49,7 +49,7 @@ function! ReadScriptFiles(wildcard)
 	endfor
 endfunction
 
-function! ReadEEnv()
+function! ReadEnv()
     let opts = $vimoptions
     let optlist = split(opts, ';')
     for opt in optlist
@@ -75,6 +75,6 @@ endfunction
 " source all .vim files in ~/.vim/scripts
 call ReadScriptFiles("~/.vim/scripts/*.vim")
 " set all options defined in vimoptions env
-call ReadEEnv()
+call ReadEnv()
 " configure path from env
 call ConfigFindPath()
