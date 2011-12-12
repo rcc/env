@@ -82,6 +82,11 @@ handle_entry () {
 			shift
 			make -C "$BUILDDIR" $*
 			;;
+		"MANIFEST" )
+			MANIFEST_FILE="$(abspath ${SRCDIR}/${1})"
+			echo "Manifest: $MANIFEST_FILE"
+			"$0" install "$MANIFEST_FILE" "$DESTDIR"
+			;;
 		* )
 			echo "Warning: Invalid type: $1"
 			;;
