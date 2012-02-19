@@ -6,6 +6,10 @@ setscope () {
     export CSCOPE_DB_PREPATH="$(pwd)"
 }
 
+scopeit () {
+	setscope && $GEDITOR .
+}
+
 # XXX: Very vim specific
 rsc () {
     if [ "$#" == "0" ]; then
