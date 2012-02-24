@@ -42,7 +42,7 @@ p4old () {
             head = -1;
             have = -1;
         }
-        
+
         $2 == "headRev" {
             head = $3;
         }
