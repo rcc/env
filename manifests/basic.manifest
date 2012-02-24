@@ -4,6 +4,7 @@
 # Very Basic Shell Environment
 LINK		.bashrc					../shell/bashrc
 LINK		.bash_profile			../shell/bash_profile
+LINK		.screenrc				../shell/screenrc
 LINK		.shell/S10env			../shell/S10env
 LINK		.shell/S20history		../shell/S20history
 
