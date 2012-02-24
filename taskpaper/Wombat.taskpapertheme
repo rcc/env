@@ -39,15 +39,15 @@
 		tagColorID="tag"
 	/>
 
-	<!-- GroupHeader style. This section defines the styles that are applied to groupHeader lines. (top level projects) -->
-	<characterStyle id="groupHeader" fontID="groupHeader" foregroundColorID="groupHeader" />
-	<paragraphStyle id="groupHeader" extendsParagraphStyleID="base" paragraphSpacingBefore="10" paragraphSpacing="10" />
-	<entryRule matchesQuery="type = &quot;project&quot; and level = 0" paragraphStyleID="groupHeader" lineCharacterStyleID="groupHeader" />
-
 	<!-- Project style. This section defines the styles that are applied to project lines. -->
 	<characterStyle id="project" fontID="project" foregroundColorID="project" />
 	<paragraphStyle id="project" extendsParagraphStyleID="base" paragraphSpacingBefore="5" paragraphSpacing="5" />
 	<entryRule matchesQuery="type = &quot;project&quot;" lineCharacterStyleID="project" paragraphStyleID="project" />
+
+	<!-- GroupHeader style. This section defines the styles that are applied to groupHeader lines. (top level projects) -->
+	<characterStyle id="groupHeader" fontID="groupHeader" foregroundColorID="groupHeader" />
+	<paragraphStyle id="groupHeader" extendsParagraphStyleID="base" paragraphSpacingBefore="10" paragraphSpacing="10" />
+	<entryRule matchesQuery="type = &quot;project&quot; and level = 0" paragraphStyleID="groupHeader" lineCharacterStyleID="groupHeader" />
 
 	<!-- Task style. This section defines the styles that are applied to task lines. -->
 	<characterStyle id="task" fontID="task" foregroundColorID="task" />
