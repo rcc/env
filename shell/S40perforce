@@ -115,10 +115,35 @@ p4cl_from_gitbranch () {
 }
 
 p4patch () {
-	if p4 change -o $1 | grep -E '^Status:.*pending' > /dev/null; then
-		#echo "Pending Changelist: ${1}" > CL${1}.patch
-		#echo >> CL${1}.patch
-		p4 describe $1 > CL${1}.patch
+	OUTFN=""
+	if [ $# -eq 0 ]; then
+		echo "Invalid usage"
+	elif [ $1 == "--" ]; then
+		# Pending Files
+		OUTFN="default.patch"
+		shift
+		echo "Affected files ..." > $OUTFN
+		echo "" >> $OUTFN
+		for arg in "$@"; do
+			echo "    $arg" >> $OUTFN
+		done
+		echo "" >> $OUTFN
+		for arg in "$@"; do
+			P4DIFF="diff -up" p4 diff "$arg" | awk 'BEGIN { p = 0; }
+				/^====.*====$/ {
+					sub("==== //", "--- a/");
+					sub("#.*$", "");
+					print $0;
+					sub("--- a", "+++ b");
+				}
+				/^---/,/^\+\+\+/ { next; }
+				{ print $0; }
+				' >> $OUTFN
+		done
+	elif p4 change -o $1 | grep -E '^Status:.*pending' > /dev/null; then
+		# Pending CL
+		OUTFN="CL${1}.patch"
+		p4 describe $1 > $OUTFN
 		p4 opened -c $1 | awk 'BEGIN {FS="#";} {print $1;}' | while read dfile; do
 			P4DIFF="diff -up" p4 diff "$dfile" | awk 'BEGIN { p = 0; }
 				/^====.*====$/ {
@@ -129,10 +154,12 @@ p4patch () {
 				}
 				/^---/,/^\+\+\+/ { next; }
 				{ print $0; }
-				' >> CL${1}.patch
+				' >> $OUTFN
 		done
 	else
-		p4 describe -s $1 > CL${1}.patch
+		# Submitted CL
+		OUTFN="CL${1}.patch"
+		p4 describe -s $1 > $OUTFN
 		p4 describe -du -db $1 | awk 'BEGIN { p = 0; }
 			/^====/ {
 				sub("==== //", "--- a/");
@@ -141,9 +168,11 @@ p4patch () {
 				sub("--- a", "+++ b");
 			}
 			{ if(p) print $0; }
-			/^Differences \.\.\./ { p = 1; }' >> CL${1}.patch
+			/^Differences \.\.\./ { p = 1; }' >> $OUTFN
 	fi
-	echo "CL${1}.patch"
+	if [ -n "$OUTFN" ]; then
+		echo "$OUTFN"
+	fi
 }
 
 # vim:filetype=sh
