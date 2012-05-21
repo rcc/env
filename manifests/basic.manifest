@@ -9,3 +9,4 @@ LINK		.shell/S10env			../shell/S10env
 LINK		.shell/S20history		../shell/S20history
 
 LINK		bin/colors				../bin/colors
+LINK		bin/syncdir				../bin/syncdir

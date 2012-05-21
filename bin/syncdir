@@ -1,0 +1,56 @@
+#!/bin/bash
+
+DEST="$1"
+
+# color constants
+NO="\033[0m"
+BR="\033[30m"
+RD="\033[31m"
+GR="\033[32m"
+YL="\033[33m"
+BL="\033[34m"
+MG="\033[35m"
+CY="\033[36m"
+
+# exit command
+error_exit () {
+    echo -e "${RD}$*${NO}" 1>&2
+    exit 1
+}
+
+usage () {
+	echo "syncto <destination>"
+	echo "  Run syncto from the directory you want to synchronize."
+	echo "  Examples:"
+	echo "    syncto rcc@server"
+	echo "    syncto server"
+}
+
+# Check Arguments
+if [ -z "$1" ]; then
+	usage
+	error_exit "Invalid Usage"
+fi
+
+# Get source from PWD
+SRC="$(pwd)"
+# Turn source into generic based on HOME
+ROOT=~
+GSRC=$(echo $SRC | sed -n -e "s;$ROOT;\~;p")
+if [ -z "$GSRC" ]; then
+	GSRC="$SRC"
+fi
+
+echo -e "Source: ${CY}${GSRC}${NO}"
+
+# Sync To
+ssh "${DEST}" mkdir -p "${GSRC}" || \
+	error_exit "Error creating destination directory"
+rsync -vrulpzc ./ "${DEST}":"${GSRC}" || \
+	error_exit "Error syncing to destination"
+echo -e "${GR}Sync To Complete${NO}"
+
+# Sync Back
+rsync -vrulpzc "${DEST}":"${GSRC}/" . || \
+	error_exit "Error syncing From destination"
+echo -e "${GR}Sync From Complete${NO}"
