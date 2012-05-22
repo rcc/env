@@ -1,7 +1,5 @@
 #!/bin/bash
 
-DEST="$1"
-
 # color constants
 NO="\033[0m"
 BR="\033[30m"
@@ -26,6 +24,24 @@ usage () {
 	echo "    syncto server"
 }
 
+# handle options
+SYNCBACK=1
+DELETE=
+while [ "${1:0:1}" == "-" ]; do
+	if [ "${1}" == "--pushonly" ]; then
+		echo -e "${GR}OPT: ${CY}${1}${NO}"
+		SYNCBACK=0
+	fi
+	if [ "${1}" == "--delete" ]; then
+		echo -e "${GR}OPT: ${CY}${1}${NO}"
+		DELETE="--delete"
+		SYNCBACK=0
+	fi
+	shift
+done
+
+DEST="$1"
+
 # Check Arguments
 if [ -z "$1" ]; then
 	usage
@@ -46,11 +62,13 @@ echo -e "Source: ${CY}${GSRC}${NO}"
 # Sync To
 ssh "${DEST}" mkdir -p "${GSRC}" || \
 	error_exit "Error creating destination directory"
-rsync -vrulpzc ./ "${DEST}":"${GSRC}" || \
+rsync -vrulpzc $DELETE ./ "${DEST}":"${GSRC}" || \
 	error_exit "Error syncing to destination"
 echo -e "${GR}Sync To Complete${NO}"
 
 # Sync Back
-rsync -vrulpzc "${DEST}":"${GSRC}/" . || \
-	error_exit "Error syncing From destination"
-echo -e "${GR}Sync From Complete${NO}"
+if [ "$SYNCBACK" -eq "1" ]; then
+	rsync -vrulpzc "${DEST}":"${GSRC}/" . || \
+		error_exit "Error syncing From destination"
+	echo -e "${GR}Sync From Complete${NO}"
+fi
