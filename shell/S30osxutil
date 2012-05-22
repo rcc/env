@@ -1,0 +1,66 @@
+preview () {
+	groff -Tps | open -f -a /Applications/Preview.app
+}
+
+# usage: mkdmg <destination> <volume name> <source dir>
+#   If <source dir> has a trailing slash, the contents of the directory will
+#   be put into the dmg. If it doesn't have a slash, the whole directory will
+#   be put into the dmg.
+mkdmg () {
+	if [ "$#" != "3" ]; then
+		echo "usage: mkdmg <destination> <volume name> <source dir>" 1>&2
+		return 1
+	fi
+
+	DEST="$1"
+	VOL="$2"
+	SRC="$3"
+
+	OUTDMG="${DEST}/${VOL}.dmg"
+
+	if [ ! -d "$DEST" ]; then
+		echo "destination directory does not exist: $DEST" 1>&2
+		return 1
+	fi
+
+	if [ ! -d "$SRC" ]; then
+		echo "source directory does not exist: $src" 1>&2
+		return 1
+	fi
+
+	if [ -e "$OUTDMG" ]; then
+		echo "warning: output dmg already exists. deleting" 1>&2
+		rm -f "$OUTDMG"
+	fi
+
+	# figure out the size of DMG needed
+	SRCBYTES=$(du -sk "$SRC" | awk '{print $1;}')
+	DMGMB=$(expr \( $SRCBYTES + 16384 \) / \( 1024 \* 10 \) \* 10)
+	echo "Source Bytes: $SRCBYTES   DMG Megabytes: $DMGMB"
+
+	# create tmp dmg
+	TMPDMG="tmp-$VOL.dmg"
+	hdiutil create "${DEST}/${TMPDMG}" -megabytes ${DMGMB} -ov -type UDIF \
+		|| return 1
+	DISK=$(hdid -nomount "${DEST}/${TMPDMG}" | awk '{if(NR == 1) print $1;}' \
+			| xargs basename)
+	echo "Formatting $DISK..."
+	newfs_hfs -v "$VOL" "/dev/r${DISK}s1" || return 1
+	hdiutil eject $DISK
+
+	# mount and copy files
+	echo "Copying files from $SRC to /Volumes/$VOL ..."
+	hdid "${DEST}/${TMPDMG}" || return 1
+	if [ ! -d "/Volumes/$VOL" ]; then
+		echo "can't find mounted filesystem: /Volumes/$VOL" 1>&2
+		return 1
+	fi
+	cp -r "$SRC" "/Volumes/$VOL"
+	hdiutil eject $DISK
+
+	# convert to a compressed image
+	hdiutil convert "${DEST}/${TMPDMG}" -format UDZO -o "$OUTDMG"
+	rm -f "${DEST}/${TMPDMG}"
+}
+
+# vim:filetype=sh

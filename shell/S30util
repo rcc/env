@@ -1,0 +1,48 @@
+alias grep="grep --color"
+
+# functions
+newbash () {
+    echo "#!/bin/bash" > "$1"
+    chmod +x "$1"
+}
+
+settitle () {
+    echo -ne "\033]0;$*\007"
+}
+
+findd () {
+    find . -type d -iname "${1}"
+}
+
+findf () {
+    find . -type f -iname "${1}"
+}
+
+install_key () {
+	KEY=$HOME/.ssh/id_rsa.pub
+	HOST=$1
+
+	if [ ! -e "$KEY" ]; then
+		echo "$KEY does not exist" 1>&2
+		return 1
+	fi
+
+	cat "$KEY" | ssh $HOST 'mkdir -p ~/.ssh; chmod 700 ~/.ssh; cat >> ~/.ssh/authorized_keys; chmod 600 ~/.ssh/authorized_keys'
+}
+
+timetag () {
+	date -u '+%Y%m%d_%H%M'
+}
+
+add_path () {
+	export PATH="$(pwd):${PATH}"
+}
+
+full_path () {
+	if [ -e "$1" ]; then
+		P=`(cd $(dirname "$1") && pwd)`
+		echo "$P/$(basename "$1")"
+	fi
+}
+
+# vim:filetype=sh

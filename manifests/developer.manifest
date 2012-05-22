@@ -2,6 +2,7 @@ MANIFEST	basic.manifest
 
 # All Sources are relative to manifest file
 # Type		Destination					Source
+LINK		.shell/S30devutil			../shell/S30devutil
 LINK		.shell/S30cscope			../shell/S30cscope
 LINK		.shell/S40git				../shell/S40git
 LINK		.shell/S40svn				../shell/S40svn

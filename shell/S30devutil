@@ -1,0 +1,14 @@
+diffc () {
+    diff -uwp "$@" | detab | diffcolorize
+}
+
+newcheader () {
+	n=$(echo $1 | sed -e 'y; -./;____;' -e 'y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/')
+	def="I__${n}__"
+	echo "#ifndef $def" > $1
+	echo "	#define $def" >> $1
+	echo "" >> $1
+	echo "#endif /* $def */" >> $1
+}
+
+# vim:filetype=sh
