@@ -3,5 +3,6 @@ export PATH="${HOME}/bin:/opt/local/bin:/opt/local/sbin:${PATH}"
 export PS1="\[\033[00;32m\]\u@\h \[\033[00;36m\]\w\n\$\[\033[00m\] "
 
 #export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export CLICOLOR=1
 
 # vim:filetype=sh
