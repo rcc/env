@@ -59,16 +59,19 @@ fi
 
 echo -e "Source: ${CY}${GSRC}${NO}"
 
+# escaped GSRC
+EGSRC="$(echo $GSRC | sed -e 's/ /\\ /g')"
+
 # Sync To
-ssh "${DEST}" mkdir -p "${GSRC}" || \
+ssh "${DEST}" mkdir -p "${EGSRC}" || \
 	error_exit "Error creating destination directory"
-rsync -vrulpzc $DELETE ./ "${DEST}":"${GSRC}" || \
+rsync -vrulpzc $DELETE ./ "${DEST}":"${EGSRC}" || \
 	error_exit "Error syncing to destination"
 echo -e "${GR}Sync To Complete${NO}"
 
 # Sync Back
 if [ "$SYNCBACK" -eq "1" ]; then
-	rsync -vrulpzc "${DEST}":"${GSRC}/" . || \
+	rsync -vrulpzc "${DEST}":"${EGSRC}/" . || \
 		error_exit "Error syncing From destination"
 	echo -e "${GR}Sync From Complete${NO}"
 fi
