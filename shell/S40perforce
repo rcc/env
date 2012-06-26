@@ -88,7 +88,7 @@ p4_branch_details () {
 
 # XXX: Uses difftools
 p4diff () {
-    P4DIFF="diff -uwp" p4 diff "$@" | diffcolorize | detab | less -R -X
+    P4DIFF="diff -uwp" p4 diff "$@" | detab | diffcolorize | less -R -X
 }
 
 p4needsmerge () {
@@ -101,7 +101,7 @@ p4needsmerge () {
 
 # XXX: Uses difftools
 p4describe () {
-    p4 describe -du -db $1 | diffcolorize | detab | less -R -X
+    p4 describe -du -db $1 | detab | diffcolorize | less -R -X
 }
 
 p4cl_from_gitbranch () {

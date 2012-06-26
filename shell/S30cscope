@@ -7,7 +7,11 @@ setscope () {
 }
 
 scopeit () {
-	setscope && $GEDITOR .
+	if [ "$GEDITOR" == "mvim" -o "$GEDITOR" == "gvim" ]; then
+		setscope && $GEDITOR -c 'call ConfigCScope()' .
+	else
+		setscope && $GEDITOR .
+	fi
 }
 
 # XXX: Very vim specific
