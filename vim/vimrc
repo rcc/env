@@ -40,6 +40,9 @@ set title		" let vim modify the title
 " program to pipe text through when pressing =
 set equalprg=fmt
 
+" make gf open file in new tab
+map gf :tabnew <cfile><CR>
+
 " Functions
 function! ReadScriptFiles(wildcard)
 	let scriptfiles = glob(a:wildcard)
