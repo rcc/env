@@ -175,4 +175,12 @@ p4patch () {
 	fi
 }
 
+p4ls () {
+	DIR=${1%%/}
+	if [ -n "$DIR" ]; then
+		DIR="${DIR}/"
+	fi
+    p4 dirs "//${DIR}*"
+}
+
 # vim:filetype=sh
