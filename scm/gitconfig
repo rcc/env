@@ -1,0 +1,11 @@
+[user]
+	name = Robert Curtis
+	email = robert.caston@gmail.com
+[push]
+	default = matching
+[merge]
+	tool = mvimdiff
+[color]
+	ui = auto
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
