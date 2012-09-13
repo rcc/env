@@ -118,6 +118,9 @@ p4patch () {
 	OUTFN=""
 	if [ $# -eq 0 ]; then
 		echo "Invalid usage"
+	elif [ $1 == "--default" ]; then
+		FILELIST="$(p4opened -c default)"
+		p4patch -- $FILELIST
 	elif [ $1 == "--" ]; then
 		# Pending Files
 		OUTFN="default.patch"
@@ -173,6 +176,14 @@ p4patch () {
 	if [ -n "$OUTFN" ]; then
 		echo "$OUTFN"
 	fi
+}
+
+p4ls () {
+	DIR=${1%%/}
+	if [ -n "$DIR" ]; then
+		DIR="${DIR}/"
+	fi
+    p4 dirs "//${DIR}*"
 }
 
 # vim:filetype=sh
