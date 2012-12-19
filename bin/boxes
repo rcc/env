@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+import sys
+
+sys.argv.pop(0)
+box_type = sys.argv.pop(0)
+box_h = int(sys.argv.pop(0))
+try:
+	box_w = int(sys.argv.pop(0))
+except:
+	box_w = 80
+
+if box_type == "sh":
+	fill_char = '#'
+elif box_type == "c":
+	fill_char = '*'
+elif box_type == "cpp":
+	fill_char = '/'
+else:
+	print "Invalid Box Type"
+	sys.exit(1)
+
+ii = 0
+while ii < box_h:
+	jj = 0
+	if ii == 0:
+		if box_type == "c":
+			sys.stdout.write('/')
+			jj += 1
+		while jj < box_w:
+			sys.stdout.write(fill_char)
+			jj += 1
+	elif ii == (box_h - 1):
+		while jj < box_w:
+			if box_type == "c" and jj == (box_w - 1):
+				sys.stdout.write('/')
+			else:
+				sys.stdout.write(fill_char)
+			jj += 1
+	else:
+		while jj < box_w:
+			if jj == 0 or jj == (box_w - 1):
+				sys.stdout.write(fill_char)
+			else:
+				sys.stdout.write(' ')
+			jj += 1
+	ii += 1
+	sys.stdout.write('\n')
