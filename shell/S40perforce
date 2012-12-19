@@ -186,4 +186,30 @@ p4ls () {
     p4 dirs "//${DIR}*"
 }
 
+p4makeoverlay () {
+	SRC="${1%%/}"
+	DEST="${2%%/}"
+
+	if [ ! -d "$SRC" ]; then
+		echo "Source directory does not exist"
+		return
+	fi
+	if [ ! -d "$DEST" ]; then
+		echo "Destination directory does not exist"
+		return
+	fi
+
+	ABSSRC=$(cd "$SRC" && pwd)
+
+	p4opened "${SRC}/..." | while read fn; do
+		# get the common part of the path
+		rfn=$(echo $fn | sed -e "s;${ABSSRC}/;;")
+		rdir=$(dirname "$rfn")
+		# make the directory
+		[ -d "${DEST}/${rdir}" ] || mkdir -p "${DEST}/${rdir}"
+		# copy the file
+		cp -v "${SRC}/${rfn}" "${DEST}/${rfn}"
+	done
+}
+
 # vim:filetype=sh
