@@ -1,5 +1,5 @@
-STRIPPED_PATH=$(echo $PATH | sed -e 's;:/usr/local/bin[/]*;;')
-export PATH="${HOME}/bin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:${STRIPPED_PATH}"
+STRIPPED_PATH=$(echo $PATH | sed -e 's;:/usr/local/bin[/]*;;' -e 's;:/usr/local/sbin[/]*;;')
+export PATH="${HOME}/bin:/usr/local/bin:/usr/local/sbin:${STRIPPED_PATH}"
 
 if [ "$TERM" != "dumb" ]; then
 	export PS1="\[\033[00;32m\]\u@\h \[\033[00;36m\]\w\n\$\[\033[00m\] "
