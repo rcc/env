@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+
+brew doctor
+
+brew install git
+brew install ack
+brew install --with-cscope macvim
