@@ -20,7 +20,7 @@
 	<font id="groupHeader" extendsFontID="base" fontTraitMask="NSBoldFontMask" size="18" />
 	<font id="project" extendsFontID="base" fontTraitMask="NSBoldFontMask" />
 	<font id="task" extendsFontID="base" />
-	<font id="note" extendsFontID="base" />
+	<font id="note" extendsFontID="base" fontTraitMask="NSItalicFontMask" />
 
 	<!-- Window Style -->
 	<window foregroundColorID="foreground" backgroundColorID="background" shouldUseHUDScrollers="no" />
