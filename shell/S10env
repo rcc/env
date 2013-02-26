@@ -10,4 +10,6 @@ fi
 #export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export CLICOLOR=1
 
+set -o vi
+
 # vim:filetype=sh
