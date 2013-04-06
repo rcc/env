@@ -72,4 +72,8 @@
 	<!-- @hot style. -->
 	<characterStyle id="hot" foregroundColorID="hot" />
 	<entryRule matchesQuery="@hot" contentCharacterStyleID="hot" />
+
+	<!-- @today style. -->
+	<characterStyle id="hot" foregroundColorID="hot" />
+	<entryRule matchesQuery="@today" contentCharacterStyleID="hot" />
 </theme>
