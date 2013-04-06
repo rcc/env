@@ -8,7 +8,7 @@ setscope () {
 
 scopeit () {
 	if [ "$GEDITOR" == "mvim" -o "$GEDITOR" == "gvim" ]; then
-		setscope && $GEDITOR -c 'call ConfigCScope()' .
+		setscope && $GEDITOR -c 'call ConfigCScope()' -c 'NERDTree'
 	else
 		setscope && $GEDITOR .
 	fi
