@@ -2,7 +2,7 @@ STRIPPED_PATH=$(echo $PATH | sed -e 's;:/usr/local/bin[/]*;;' -e 's;:/usr/local/
 export PATH="${HOME}/bin:/usr/local/bin:/usr/local/sbin:${STRIPPED_PATH}"
 
 if [ "$TERM" != "dumb" ]; then
-	export PS1="\[\033[00;32m\]\u@\h \[\033[00;36m\]\w\n\$\[\033[00m\] "
+	export PS1="\[\033[00;32m\]\u@\h \[\033[00;36m\]\w\n\[\033[00m\]\342\232\241  "
 else
 	export PS1="\w \$ "
 fi
