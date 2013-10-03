@@ -2,18 +2,23 @@
 	<!-- Colors -->
 	<color id="foreground" red="0.96" green="0.95" blue="0.91" alpha="1.0" />
 	<color id="background" red="0.14" green="0.14" blue="0.14" alpha="1.0" />
-	<color id="insertionPoint" extendsColorID="foreground" />
+
+	<color id="red" red="0.90" green="0.47" blue="0.43" alpha="1.0" />
+
+	<color id="orange" red="0.84" green="0.52" blue="0.20" alpha="1.0" />
+
+	<color id="yellow" red="0.84" green="0.79" blue="0.27" alpha="1.0" />
+
+	<color id="green" red="0.58" green="0.89" blue="0.33" alpha="1.0" />
+	<color id="green_med" red="0.79" green="0.90" blue="0.51" alpha="1.0" />
+	<color id="green_lt" red="0.91" green="0.96" blue="0.85" alpha="1.0" />
+
+	<color id="blue" red="0.54" green="0.78" blue="0.95" alpha="1.0" />
+
+	<color id="gray_lt" red="0.63" green="0.66" blue="0.69" alpha="1.0" />
+	<color id="gray_dark" red="0.22" green="0.25" blue="0.28" alpha="1.0" />
+
 	<color id="selection" red="0.4" green="0.4" blue="0.4" alpha="1.0" />
-	<color id="handle" red="0.79" green="0.90" blue="0.51" alpha="1.0" />
-	<color id="groupHeader" red="0.54" green="0.78" blue="0.95" alpha="1.0" />
-	<color id="project" extendsColorID="handle" />
-	<color id="task" extendsColorID="foreground" />
-	<color id="note" red="0.60" green="0.59" blue="0.55" alpha="1.0" />
-	<color id="tag" red="0.90" green="0.47" blue="0.43" alpha="1.0" />
-	<color id="today" red="0.58" green="0.89" blue="0.33" alpha="1.0" />
-	<color id="blocked" red="0.89" green="0.90" blue="0.40" alpha="1.0" />
-	<color id="later" red="0.60" green="0.59" blue="0.55" alpha="1.0" />
-	<color id="done" red="0.24" green="0.28" blue="0.31" alpha="1.0" />
 
 	<!-- Fonts -->
 	<font id="base" name="Helvetica" size="0" />
@@ -33,43 +38,47 @@
 		shouldShowNoteHandles="yes"
 		shouldShowProjectHandles="yes"
 		defaultCharacterStyleID="base"
-		insertionPointColorID="insertionPoint"
+		insertionPointColorID="foreground"
 		selectionColorID="selection"
-		handleColorID="handle"
-		tagColorID="tag"
+		handleColorID="green_med"
+		tagColorID="red"
 	/>
 
 	<!-- Project style. This section defines the styles that are applied to project lines. -->
-	<characterStyle id="project" fontID="project" foregroundColorID="project" />
+	<characterStyle id="project" fontID="project" foregroundColorID="green_med" />
 	<paragraphStyle id="project" extendsParagraphStyleID="base" paragraphSpacingBefore="5" paragraphSpacing="5" />
 	<entryRule matchesQuery="type = &quot;project&quot;" lineCharacterStyleID="project" paragraphStyleID="project" />
 
 	<!-- GroupHeader style. This section defines the styles that are applied to groupHeader lines. (top level projects) -->
-	<characterStyle id="groupHeader" fontID="groupHeader" foregroundColorID="groupHeader" />
+	<characterStyle id="groupHeader" fontID="groupHeader" foregroundColorID="blue" />
 	<paragraphStyle id="groupHeader" extendsParagraphStyleID="base" paragraphSpacingBefore="10" paragraphSpacing="10" />
 	<entryRule matchesQuery="type = &quot;project&quot; and level = 0" paragraphStyleID="groupHeader" lineCharacterStyleID="groupHeader" />
 
 	<!-- Task style. This section defines the styles that are applied to task lines. -->
-	<characterStyle id="task" fontID="task" foregroundColorID="task" />
+	<characterStyle id="task" fontID="task" foregroundColorID="foreground" />
 	<entryRule matchesQuery="type = task" lineCharacterStyleID="task" paragraphStyleID="base" />
 
 	<!-- Note style. This section defines the styles that are applied to note lines. -->
-	<characterStyle id="note" fontID="note" foregroundColorID="note" />
+	<characterStyle id="note" fontID="note" foregroundColorID="gray_lt" />
 	<entryRule matchesQuery="type = note" lineCharacterStyleID="note" paragraphStyleID="base" />
 
 	<!-- @today style. -->
-	<characterStyle id="today" foregroundColorID="today" />
+	<characterStyle id="today" foregroundColorID="green" />
 	<entryRule matchesQuery="@today" contentCharacterStyleID="today" />
 
 	<!-- @blocked style. -->
-	<characterStyle id="blocked" foregroundColorID="blocked" />
+	<characterStyle id="blocked" foregroundColorID="yellow" />
 	<entryRule matchesQuery="@blocked" contentCharacterStyleID="blocked" />
 
 	<!-- @later style. -->
-	<characterStyle id="later" foregroundColorID="later" />
+	<characterStyle id="later" foregroundColorID="gray_lt" />
 	<entryRule matchesQuery="@later" contentCharacterStyleID="later" />
 
 	<!-- @done style. -->
-	<characterStyle id="done" strikethroughStyle="NSUnderlineStyleSingle" foregroundColorID="done" />
+	<characterStyle id="done" strikethroughStyle="NSUnderlineStyleSingle" foregroundColorID="gray_dark" />
 	<entryRule matchesQuery="@done" contentCharacterStyleID="done" />
+
+	<!-- @bang style. -->
+	<characterStyle id="bang" foregroundColorID="orange" />
+	<entryRule matchesQuery="@bang" contentCharacterStyleID="bang" />
 </theme>
