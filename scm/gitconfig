@@ -2,7 +2,7 @@
 	name = Robert Curtis
 	email = robert.caston@gmail.com
 [push]
-	default = matching
+	default = upstream
 [merge]
 	tool = mvimdiff
 [color]
