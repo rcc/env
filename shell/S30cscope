@@ -1,6 +1,7 @@
 export CSCOPE_EDITOR=$GEDITOR
 
 setscope () {
+    find . -type f \( -name '*.c' -o -name '*.cpp' -o -name '*.m' -o -name '*.mm' -o -name '*.h' \) > cscope.files
     cscope -Rkb $*
     export CSCOPE_DB="$(pwd)/cscope.out"
     export CSCOPE_DB_PREPATH="$(pwd)"
