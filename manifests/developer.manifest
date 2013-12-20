@@ -17,5 +17,6 @@ MAKECMD		../difftools				DESTDIR=buildresults INSTALL=1 difftools.release
 LINK		bin/difftools				../difftools/buildresults/difftools
 LINK		bin/detab					../difftools/buildresults/difftools
 LINK		bin/diffcolorize			../difftools/buildresults/difftools
+LINK		bin/ansi2html				../bin/ansi2html
 
 LINK		.gitconfig					../scm/gitconfig
