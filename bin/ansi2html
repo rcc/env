@@ -77,6 +77,13 @@ elif [ "$1" = "--palette=xterm" ]; then
    P8=7F7F7F;  P9=FF0000; P10=00FF00; P11=FFFF00;
   P12=5C5CFF; P13=FF00FF; P14=00FFFF; P15=FFFFFF;
   shift;
+elif [ "$1" = "--palette=wombat" ]; then
+   P0=000000;  P1=E27770;  P2=CCE587;  P3=E2E26D;
+   P4=8CC6EF;  P5=DD84E2;  P6=87E8E2;  P7=F4F2E8;
+   P8=303030;  P9=FC877C; P10=96E25B; P11=FCFC7A;
+  P12=93D1FC; P13=F793FC; P14=93FFFC; P15=FFFCF2;
+  dark_bg=yes;
+  shift;
 else # linux console
    P0=000000;  P1=AA0000;  P2=00AA00;  P3=AA5500;
    P4=0000AA;  P5=AA00AA;  P6=00AAAA;  P7=AAAAAA;
@@ -155,7 +162,7 @@ printf '%s' '
   /* Bold is heavy black on white, or bright white
      depending on the default background */
   color: '`[ "$dark_bg" ] && printf "#$P15;" || printf "#$P0;"`'
-  font-weight: '`[ "$dark_bg" ] && printf 'normal;' || printf 'bold;'`'
+  font-weight: '`[ "$dark_bg" -a ! "$allow_bold" ] && printf 'normal;' || printf 'bold;'`'
 }
 .reverse {
   /* CSS doesnt support swapping fg and bg colours unfortunately,
