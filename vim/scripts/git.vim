@@ -60,3 +60,18 @@ function! Gitshowundercursor()
 	let object = expand("<cword>")
 	call Gitshow(object)
 endfunction
+
+function! Gitblame()
+    let fn = expand("%")
+    if &modified
+        echo "Current Buffer Is Modified!"
+        return
+    endif
+    new
+    only
+    exe "read ! git blame " . fn
+    normal ggdd
+    set buftype=nowrite
+    setlocal noswapfile
+    setlocal bufhidden=delete
+endfunction

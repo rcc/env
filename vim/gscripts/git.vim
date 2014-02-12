@@ -1,4 +1,5 @@
 600menu Git.Diff :call Gitcurrentfilediff()<CR>
+600menu Git.Blame :call Gitblame()<CR>
 600menu Git.-Sep1- :
 600menu Git.All\ File\ Unified\ Diff :call Gitalldiff()<CR>
 600menu Git.Status :call Gitstatus()<CR>
