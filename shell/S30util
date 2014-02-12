@@ -2,20 +2,20 @@ alias grep="grep --color"
 
 # functions
 newbash () {
-    echo "#!/bin/bash" > "$1"
-    chmod +x "$1"
+	echo "#!/bin/bash" > "$1"
+	chmod +x "$1"
 }
 
 settitle () {
-    echo -ne "\033]0;$*\007"
+	echo -ne "\033]0;$*\007"
 }
 
 findd () {
-    find . -type d -iname "${1}"
+	find . -type d -iname "${1}"
 }
 
 findf () {
-    find . -type f -iname "${1}"
+	find . -type f -iname "${1}"
 }
 
 install_key () {
@@ -42,6 +42,24 @@ full_path () {
 	if [ -e "$1" ]; then
 		P=`(cd $(dirname "$1") && pwd)`
 		echo "$P/$(basename "$1")"
+	fi
+}
+
+hr() {
+	COLS="$(tput cols)"
+	if [[ "$COLS" -le 0 ]] ; then
+		COLS="${COLUMNS:-80}"
+	fi
+
+	local WORD="${1-#}"
+	if [[ -n "$WORD" ]] ; then
+		local LINE=''
+		while (( ${#LINE} < "$COLS" ))
+		do
+			LINE="$LINE$WORD"
+		done
+
+		echo "${LINE:0:$COLS}"
 	fi
 }
 
