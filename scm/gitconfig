@@ -5,6 +5,8 @@
 	default = upstream
 [merge]
 	tool = mvimdiff
+[diff]
+	tool = vimdiff
 [color]
 	ui = auto
 [log]
@@ -18,3 +20,4 @@
 	st = status -sb
 	ready = rebase -i @{upstream}
 	co = checkout
+	showfiles = diff-tree --no-commit-id --name-only -r
