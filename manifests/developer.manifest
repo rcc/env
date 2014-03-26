@@ -18,5 +18,6 @@ LINK		bin/difftools				../difftools/buildresults/difftools
 LINK		bin/detab					../difftools/buildresults/difftools
 LINK		bin/diffcolorize			../difftools/buildresults/difftools
 LINK		bin/ansi2html				../bin/ansi2html
+LINK		bin/gitreview				../bin/gitreview
 
 LINK		.gitconfig					../scm/gitconfig

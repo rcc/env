@@ -1,0 +1,32 @@
+#!/bin/bash
+
+handlediff () {
+	abase="$(basename "$1")"
+	bbase="$(basename "$2")"
+	cp "$1" "${DIFFDIR}/"
+	cp "$2" "${DIFFDIR}/"
+	if [ "$1" == "/dev/null" ]; then
+		mvim "${DIFFDIR}/${bbase}" > /dev/null
+	else
+		mvim -d "${DIFFDIR}/${abase}" "${DIFFDIR}/${bbase}" > /dev/null
+	fi
+}
+
+### Check for recursive call from difftool
+if [ "$1" == "--" ]; then
+	if [ ! -d "$DIFFDIR" ]; then
+		exit 1
+	fi
+	handlediff $2 $3
+	exit 0
+fi
+
+### Normal Path
+SHA=$1
+
+HOMEDIR=~
+export DIFFDIR="${HOMEDIR}/Downloads/gitreview${SHA}"
+mkdir -p $DIFFDIR || exit 1
+
+git show --stat $SHA
+git difftool -y --extcmd="$0 --" ${SHA}^! --
