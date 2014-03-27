@@ -7,6 +7,8 @@ function Filetype_c()
 	set foldnestmax=1
 	set foldmethod=syntax
 	set equalprg=indent\ -st
+	" highlight 81st character in line
+	call matchadd('ErrorMsg', '\%81v.', -1)
 	call ConfigCScope()
 	call ReadScriptFiles("~/.vim/scripts/c/*.vim")
 	call ReadEnv() " configure any overrides
@@ -55,6 +57,8 @@ function Filetype_python()
 	set tabstop=4
 	set shiftwidth=4
 	set noexpandtab
+	" highlight 81st character in line
+	call matchadd('ErrorMsg', '\%81v.', -1)
 	call ReadEnv() " configure any overrides
 endfunction
 
@@ -71,9 +75,6 @@ if has("autocmd")
 
 	" auto indent on
 	filetype plugin indent on
-
-	" highlight 81st character in line
-	autocmd BufWinEnter *		call matchadd('ErrorMsg', '\%81v.', -1)
 
 	" C
 	autocmd FileType c			call Filetype_c()

@@ -29,4 +29,5 @@ export DIFFDIR="${HOMEDIR}/Downloads/gitreview${SHA}"
 mkdir -p $DIFFDIR || exit 1
 
 git show --stat $SHA
+${GVIM} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=gitshow"
 git difftool -y --extcmd="$0 --" ${SHA}^! --
