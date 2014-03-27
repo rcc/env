@@ -49,8 +49,8 @@ hi def link gitshowDiffTitle	gitshowTitleWhite
 hi def link gitshowIndex	gitshowTitleWhite
 hi def link gitshowNewFile	gitshowTitleGreen
 hi def link gitshowDeletedFile	gitshowTitleRed
-hi def link gitshowFileA	gitshowTitleGreen
-hi def link gitshowFileB	gitshowTitleRed
+hi def link gitshowFileA	gitshowTitleRed
+hi def link gitshowFileB	gitshowTitleGreen
 
 hi def link gitshowLine		gitshowMagentaBold
 
