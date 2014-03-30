@@ -21,3 +21,4 @@
 	ready = rebase -i @{upstream}
 	co = checkout
 	showfiles = diff-tree --no-commit-id --name-only -r
+	br = branch -vv
