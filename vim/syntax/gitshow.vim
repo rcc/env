@@ -16,7 +16,7 @@ syn match gitshowIndex		"^index .*"
 syn match gitshowNewFile	"^new file .*"
 syn match gitshowDeletedFile	"^deleted file .*"
 
-syn match gitshowLine		"^@@.*@@$"
+syn match gitshowLine		"^@@.*@@"
 
 syn match gitshowRemoved	"^-.*"
 syn match gitshowAdded		"^+.*"
