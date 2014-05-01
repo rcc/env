@@ -69,6 +69,15 @@ function Filetype_TSV()
 	set tabstop=20
 endfunction
 
+" TSV
+function Filetype_gitshow()
+	set nowrap
+	set foldmethod=expr
+	set foldexpr=(getline(v:lnum)[0]==\"\@\"\|\|getline(v:lnum)[0]==\"d\")?'>1':'1'
+	set foldnestmax=1
+	set foldlevel=1
+endfunction
+
 
 " filetype detection handler
 if has("autocmd")
@@ -104,5 +113,8 @@ if has("autocmd")
 
 	" HTML
 	autocmd Filetype html		call Filetype_html()
+
+	" gitshow
+	autocmd Filetype gitshow	call Filetype_gitshow()
 
 endif " has("autocmd")

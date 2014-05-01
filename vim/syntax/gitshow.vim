@@ -38,7 +38,7 @@ hi gitshowMagentaBold		guifg=#f793fc gui=bold
 hi gitshowGreenNormal		guifg=#cae682 gui=none
 hi gitshowRedNormal		guifg=#e5786d gui=none
 
-hi gitshowComment		guifg=#93fffc gui=bold guibg=#343434
+hi gitshowComment		guifg=#000000 gui=bold guibg=#fffc38
 
 hi def link gitshowCommit	gitshowYellowNormal
 hi def link gitshowAuthor	Normal
