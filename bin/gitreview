@@ -1,5 +1,27 @@
 #!/bin/bash
 
+usage () {
+	echo "usage: gitreview [OPTIONS] <sha>"
+	echo "OPTIONS:"
+	echo "  -h, --help      Print usage"
+	echo "  -u              Only show unified diff"
+}
+
+# Error command
+error () {
+    echo -e "[ERROR]" $* 1>&2
+}
+
+# Warning command
+warn () {
+    echo -e "[WARNING]" $* 1>&2
+}
+
+# Info command
+info () {
+    echo -e "[INFO]" $* 1>&2
+}
+
 handlediff () {
 	abase="$(basename "$1")"
 	bbase="$(basename "$2")"
@@ -22,12 +44,38 @@ if [ "$1" == "--" ]; then
 fi
 
 ### Normal Path
-SHA=$1
+# Defaults
+UNIFIEDONLY=0
 
-HOMEDIR=~
-export DIFFDIR="${HOMEDIR}/Downloads/gitreview${SHA}"
-mkdir -p $DIFFDIR || exit 1
+# Handle Options
+while [ "${1:0:1}" == "-" ]; do
+	# Help
+	if [ "$1" == "-h" -o "$1" == "--help" ]; then
+		usage
+		exit 0
+	fi
+	# Unified Only
+	if [ "$1" == "-u" ]; then
+		UNIFIEDONLY=1
+		shift && continue
+	fi
+	warn "Unrecognized option: $1"
+	shift
+done
+# if no arguments, print usage
+if [ "$#" -eq 0 ]; then
+    usage
+    exit 1
+fi
+SHA=$1
+shift
 
 git show --stat $SHA
 ${GVIM} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=gitshow"
-git difftool -y --extcmd="$0 --" ${SHA}^! --
+
+if [ "$UNIFIEDONLY" != "1" ]; then
+	HOMEDIR=~
+	export DIFFDIR="${HOMEDIR}/Downloads/gitreview${SHA}"
+	mkdir -p $DIFFDIR || exit 1
+	git difftool -y --extcmd="$0 --" ${SHA}^! --
+fi
