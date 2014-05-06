@@ -17,11 +17,11 @@ error_exit () {
 }
 
 usage () {
-	echo "syncto <destination>"
-	echo "  Run syncto from the directory you want to synchronize."
+	echo "syncdir <destination>"
+	echo "  Run syncdir from the directory you want to synchronize."
 	echo "  Examples:"
-	echo "    syncto rcc@server"
-	echo "    syncto server"
+	echo "    syncdir rcc@server"
+	echo "    syncdir server"
 }
 
 # handle options
