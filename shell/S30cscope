@@ -15,16 +15,4 @@ scopeit () {
 	fi
 }
 
-# XXX: Very vim specific
-rsc () {
-    if [ "$#" == "0" ]; then
-        ${GVIM} -c 'edit .' -c 'set buftype=nofile' \
-            -c 'call ConfigCScope()'
-    elif [ "$#" == "1" ]; then
-        ${GVIM} -c 'call ConfigCScope()' -c "cs find g $*"
-    else
-        ${GVIM} -c 'call ConfigCScope()' -c "cs find $*"
-    fi
-}
-
 # vim:filetype=sh

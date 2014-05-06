@@ -5,8 +5,6 @@ MANIFEST	basic.manifest
 LINK		.shell/S30devutil			../shell/S30devutil
 LINK		.shell/S30cscope			../shell/S30cscope
 LINK		.shell/S40git				../shell/S40git
-LINK		.shell/S40svn				../shell/S40svn
-LINK		.shell/S40perforce			../shell/S40perforce
 
 # Build difftools
 GITSUB		../difftools
