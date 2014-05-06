@@ -1,5 +1,3 @@
-MANIFEST	basic.manifest
-
 # All Sources are relative to manifest file
 # Type		Destination					Source
 LINK		.shell/S30devutil			../shell/S30devutil
