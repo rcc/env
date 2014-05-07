@@ -5,6 +5,7 @@ usage () {
 	echo "OPTIONS:"
 	echo "  -h, --help      Print usage"
 	echo "  -u              Only show unified diff"
+	echo "  -g              Use GUI for unified diff"
 }
 
 # Error command
@@ -46,6 +47,7 @@ fi
 ### Normal Path
 # Defaults
 UNIFIEDONLY=0
+UDIFFEDITOR=vim
 
 # Handle Options
 while [ "${1:0:1}" == "-" ]; do
@@ -59,6 +61,11 @@ while [ "${1:0:1}" == "-" ]; do
 		UNIFIEDONLY=1
 		shift && continue
 	fi
+	# gui
+	if [ "$1" == "-g" ]; then
+		UDIFFEDITOR=${GVIM}
+		shift && continue
+	fi
 	warn "Unrecognized option: $1"
 	shift
 done
@@ -70,8 +77,8 @@ fi
 SHA=$1
 shift
 
-git show --stat $SHA
-${GVIM} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=git"
+git --no-pager show --stat $SHA
+${UDIFFEDITOR} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=git"
 
 if [ "$UNIFIEDONLY" != "1" ]; then
 	HOMEDIR=~
