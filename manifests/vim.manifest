@@ -20,4 +20,4 @@ LINK		.vim/gscripts/git.vim			../vim/gscripts/git.vim
 
 LINK		.vim/syntax/tsv.vim				../vim/syntax/tsv.vim
 LINK		.vim/syntax/nerdtree.vim		../vim/syntax/nerdtree.vim
-LINK		.vim/syntax/gitshow.vim			../vim/syntax/gitshow.vim
+LINK		.vim/syntax/git.vim				../vim/syntax/git.vim

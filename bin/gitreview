@@ -71,7 +71,7 @@ SHA=$1
 shift
 
 git show --stat $SHA
-${GVIM} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=gitshow"
+${GVIM} -c "call Gitshow(\"${SHA}\")" -c "only" -c "set nowrap" -c "set filetype=git"
 
 if [ "$UNIFIEDONLY" != "1" ]; then
 	HOMEDIR=~

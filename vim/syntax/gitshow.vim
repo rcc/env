@@ -2,13 +2,19 @@
 
 " Quit when a (custom) syntax file was already loaded
 if exists("b:current_syntax")
-  finish
+	finish
 endif
 scriptencoding utf-8
 
-syn match gitshowCommit		"^commit [0-9a-fA-F]*"
-syn match gitshowAuthor		"^Author: .*"
-syn match gitshowDate		"^Date: .*"
+" Commit line
+syn match gitshowCommit		"^commit" contained
+syn match gitshowCommitHash	"[0-9a-fA-F]\{40\}" contained
+syn match gitshowCommitBranches	"(.*)" contained
+syn region gitshowCommitRegion oneline start="^commit" end="$" contains=gitshowCommit,gitshowCommitHash,gitshowCommitBranches keepend
+
+" Author and Date lines
+syn match gitshowAuthor		"^Author:"
+syn match gitshowDate		"^Date:"
 
 syn match gitshowDiffTitle	"^diff .*"
 
@@ -16,7 +22,8 @@ syn match gitshowIndex		"^index .*"
 syn match gitshowNewFile	"^new file .*"
 syn match gitshowDeletedFile	"^deleted file .*"
 
-syn match gitshowLine		"^@@.*@@"
+syn match gitshowLine		"^@@.*@@" contained
+syn region gitshowLineRegion oneline start="^@@" end="$" contains=gitshowLine keepend
 
 syn match gitshowRemoved	"^-.*"
 syn match gitshowAdded		"^+.*"
@@ -40,22 +47,25 @@ hi gitshowRedNormal		guifg=#e5786d gui=none
 
 hi gitshowComment		guifg=#000000 gui=bold guibg=#fffc38
 
-hi def link gitshowCommit	gitshowYellowNormal
-hi def link gitshowAuthor	Normal
-hi def link gitshowDate		Normal
+hi def link gitshowCommit		Keyword
+hi def link gitshowCommitHash		Constant
+hi def link gitshowCommitBranches	String
+hi def link gitshowAuthor		Keyword
+hi def link gitshowDate			Keyword
 
-hi def link gitshowDiffTitle	gitshowTitleWhite
+hi def link gitshowDiffTitle		gitshowTitleWhite
 
-hi def link gitshowIndex	gitshowTitleWhite
-hi def link gitshowNewFile	gitshowTitleGreen
-hi def link gitshowDeletedFile	gitshowTitleRed
-hi def link gitshowFileA	gitshowTitleRed
-hi def link gitshowFileB	gitshowTitleGreen
+hi def link gitshowIndex		gitshowTitleWhite
+hi def link gitshowNewFile		gitshowTitleGreen
+hi def link gitshowDeletedFile		gitshowTitleRed
+hi def link gitshowFileA		gitshowTitleRed
+hi def link gitshowFileB		gitshowTitleGreen
 
-hi def link gitshowLine		gitshowMagentaBold
+hi def link gitshowLine			gitshowMagentaBold
+hi def link gitshowLineRegion		String
 
-hi def link gitshowRemoved	gitshowRedNormal
-hi def link gitshowAdded	gitshowGreenNormal
+hi def link gitshowRemoved		gitshowRedNormal
+hi def link gitshowAdded		gitshowGreenNormal
 
 let b:current_syntax = "gitshow"
 

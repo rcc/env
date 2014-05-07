@@ -70,11 +70,9 @@ function Filetype_TSV()
 endfunction
 
 " TSV
-function Filetype_gitshow()
+function Filetype_git()
 	set nowrap
-	set foldmethod=expr
-	set foldexpr=(getline(v:lnum)[0]==\"\@\"\|\|getline(v:lnum)[0]==\"d\")?'>1':'1'
-	set foldnestmax=1
+	set foldmethod=syntax
 	set foldlevel=1
 endfunction
 
@@ -114,7 +112,7 @@ if has("autocmd")
 	" HTML
 	autocmd Filetype html		call Filetype_html()
 
-	" gitshow
-	autocmd Filetype gitshow	call Filetype_gitshow()
+	" git
+	autocmd Filetype git		call Filetype_git()
 
 endif " has("autocmd")
