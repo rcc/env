@@ -62,6 +62,17 @@ function Filetype_python()
 	call ReadEnv() " configure any overrides
 endfunction
 
+" Erlang
+function Filetype_erlang()
+	set autoindent
+	set tabstop=4
+	set shiftwidth=4
+	set expandtab
+	" highlight 81st character in line
+	call matchadd('ErrorMsg', '\%81v.', -1)
+	call ReadEnv() " configure any overrides
+endfunction
+
 " TSV
 function Filetype_TSV()
 	set nowrap
@@ -103,6 +114,9 @@ if has("autocmd")
 
 	" Python
 	autocmd Filetype python		call Filetype_python()
+
+	" Erlang
+	autocmd Filetype erlang		call Filetype_erlang()
 
 	" Make
 	autocmd BufRead *.bld		set filetype=make
