@@ -1,0 +1,15 @@
+# All Sources are relative to manifest file
+# Type		Destination				Source
+
+# Very Basic Shell Environment
+LINK		.zshrc					../shell/zshrc
+LINK		.zprofile				../shell/zprofile
+LINK		.screenrc				../shell/screenrc
+LINK		.shell/S10env			../shell/S10env
+LINK		.shell/S20history		../shell/S20history
+LINK		.shell/S30util			../shell/S30util
+LINK		.shell/S30osxutil		../shell/S30osxutil
+
+LINK		bin/colors				../bin/colors
+LINK		bin/syncdir				../bin/syncdir
+LINK		bin/boxes				../bin/boxes

@@ -6,6 +6,11 @@ newbash () {
 	chmod +x "$1"
 }
 
+newzsh () {
+	echo "#!/bin/zsh" > "$1"
+	chmod +x "$1"
+}
+
 settitle () {
 	echo -ne "\033]0;$*\007"
 }

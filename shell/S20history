@@ -1,7 +1,13 @@
 if [ "$INTERACTIVE_LOGIN" -eq "1" ]; then
-	export HISTCONTROL=erasedups
-	bind '"\e[A":history-search-backward'
-	bind '"\e[B":history-search-forward'
+	if [ "$SHELL" = "/bin/bash" ]; then
+		export HISTCONTROL=erasedups
+		bind '"\e[A":history-search-backward'
+		bind '"\e[B":history-search-forward'
+	elif [ "$SHELL" = "/bin/zsh" ]; then
+		setopt HIST_IGNORE_ALL_DUPS
+		bindkey "^[[A" history-beginning-search-backward
+		bindkey "^[[B" history-beginning-search-forward
+	fi
 fi
 
 # vim:filetype=sh

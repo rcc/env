@@ -26,7 +26,3 @@
 	purr = pull --rebase
 	up = fetch --all --tags --prune
 	ff = merge --ff-only @{upstream}
-[filter "media"]
-	required = true
-	clean = git media clean %f
-	smudge = git media smudge %f

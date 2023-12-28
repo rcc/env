@@ -1,7 +1,3 @@
-preview () {
-	groff -Tps | open -f -a /Applications/Preview.app
-}
-
 # usage: mkdmg <destination> <volume name> <source dir>
 #   If <source dir> has a trailing slash, the contents of the directory will
 #   be put into the dmg. If it doesn't have a slash, the whole directory will
