@@ -9,15 +9,11 @@ LINK		.vim/scripts/cscope.vim			../vim/scripts/cscope.vim
 LINK		.vim/scripts/hexedit.vim		../vim/scripts/hexedit.vim
 LINK		.vim/scripts/devel.vim			../vim/scripts/devel.vim
 LINK		.vim/scripts/filetype.vim		../vim/scripts/filetype.vim
-LINK		.vim/scripts/netrw.vim			../vim/scripts/netrw.vim
-LINK		.vim/scripts/NERD_tree.vim		../vim/scripts/NERD_tree.vim
 
-LINK		.vim/scripts/c/bitfields.vim	../vim/scripts/c/bitfields.vim
 LINK		.vim/scripts/c/comment.vim		../vim/scripts/c/comment.vim
 
 LINK		.vim/gscripts/output.vim		../vim/gscripts/output.vim
 LINK		.vim/gscripts/git.vim			../vim/gscripts/git.vim
 
-LINK		.vim/syntax/tsv.vim				../vim/syntax/tsv.vim
 LINK		.vim/syntax/nerdtree.vim		../vim/syntax/nerdtree.vim
 LINK		.vim/syntax/git.vim				../vim/syntax/git.vim

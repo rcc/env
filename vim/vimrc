@@ -1,6 +1,6 @@
 " .vimrc
 "
-"     Author: Robert C. Curtis
+"	Author: Robert C. Curtis
 "
 
 " allow vim settings
@@ -53,26 +53,26 @@ function! ReadScriptFiles(wildcard)
 endfunction
 
 function! ReadEnv()
-    let opts = $vimoptions
-    let optlist = split(opts, ';')
-    for opt in optlist
-        exe 'set ' . opt
-    endfor
+	let opts = $vimoptions
+	let optlist = split(opts, ';')
+	for opt in optlist
+		exe 'set ' . opt
+	endfor
 endfunction
 
 function! ConfigFindPath()
-    if(strlen($vimpath))
-        let newpath = substitute($vimpath, ";", ",", "g")
-        let cmd = "set path=" . newpath
-        execute cmd
-    endif
+	if(strlen($vimpath))
+		let newpath = substitute($vimpath, ";", ",", "g")
+		let cmd = "set path=" . newpath
+		execute cmd
+	endif
 endfunction
 
 " function that creates a scratch buffer
 function! Scratch()
-    set buftype=nofile
-    setlocal noswapfile
-    setlocal bufhidden=delete
+	set buftype=nofile
+	setlocal noswapfile
+	setlocal bufhidden=delete
 endfunction
 
 " source all .vim files in ~/.vim/scripts
