@@ -14,7 +14,12 @@ if [ "$SHELL" = "/bin/bash" ]; then
 elif [ "$SHELL" = "/bin/zsh" ]; then
 	if [ "$TERM" != "dumb" ]; then
 		setopt PROMPT_SUBST
-		PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+		if [ "$(uname -s)" = "Darwin" ]; then
+			HOSTNAME="$(scutil --get ComputerName)"
+			PROMPT='%F{green}%n@${HOSTNAME}%f %F{blue}%~%f %# '
+		else
+			PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+		fi
 	fi
 fi
 
