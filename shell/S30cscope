@@ -1,7 +1,7 @@
 export CSCOPE_EDITOR=$GEDITOR
 
 setscope () {
-    find . \( -path '*/buildresults' -o -path '*/results' \) -prune -o \
+    find . \( -path '*/buildresults' -o -path '*/results' -o -path '*/*gnu-toolchain*' \) -prune -o \
 		-type f \( -name '*.c' -o -name '*.cpp' -o -name '*.m' -o -name '*.mm' -o -name '*.h' \) -print > cscope.files
     cscope -Rkb $*
     export CSCOPE_DB="$(pwd)/cscope.out"
